@@ -1,0 +1,36 @@
+<!DOCTOTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Polygon Trade</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Red+Hat+Text:400,500&display=swap" rel="stylesheet">
+    <link href="chartstyle.css" rel="stylesheet">
+</head>
+<body>
+    <!-- <div>
+        <h1 id="polygon-price">price updating</h1>
+    </div> -->
+
+    <container class="container">
+        <cards class="cards">
+            <polygon style="width: 100%" class="matic">
+                <card class="asset-info">
+                    <div class="title">
+                        <img src="https://polygon.technology/wp-content/uploads/2021/07/polygon-logo.svg" width="70%"> 
+                    </div>
+                    <div class="details">
+                        <h2 class="asset-price" id="maticPrice"></h2>
+                    </div>
+                </card>
+                <canvas id="maticChart"></canvas>
+            </polygon>
+        </cards>
+      </container>
+</body>
+
+<script src="chartdata.js"></script>
+</html>
