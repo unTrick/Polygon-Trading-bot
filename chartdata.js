@@ -19,16 +19,18 @@ ws.onmessage = (event) => {
     else { // currentPrice > lastprice
         $("#polygon-price").css("color", "green");
     }
-    lastPrice = currentPrice;
+    
 
     priceStorage.push(currentPrice);
 
     if(priceStorage.length > 40){
 
     }
-
+    
+    updatePolygonPrice(currentPrice);
     //console.log(stockObject);
     //console.log(priceStorage);
+    //lastPrice = currentPrice;
 }
 
 // chart data
@@ -142,10 +144,9 @@ const maticData = async () => {
   }
   
   /// Update current price ///  
-  async function updatePolygonPrice() {
+  async function updatePolygonPrice(currentPrice) {
     let { times, prices } = await maticData()
-    let currentPrice = prices[prices.length-1].toFixed(3);
-  
+    //let currentPrice = prices[prices.length-1].toFixed(3);
     $("#maticPrice").text("$" + currentPrice);
     if (lastPrice == currentPrice){
         $("#maticPrice").css("color", "black");
@@ -156,8 +157,9 @@ const maticData = async () => {
     else { // currentPrice > lastprice
         $("#maticPrice").css("color", "green");
     }
+
     lastPrice = currentPrice;
   }
   
-  updatePolygonPrice();
+  //updatePolygonPrice();
   printMaticChart();
