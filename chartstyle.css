@@ -13,13 +13,25 @@ p {
     color: #303030;
 }
 
+span {
+    width: 50%;
+    float: left;
+    font-size: 25pt;
+}
+
 .container {
     display: flex;
     justify-content: center;
 }
 
+#priceAlerts {
+    width: 100%;
+    text-align: center;
+    padding-top: 200px;
+}
+
 cards {
-    width: 90%;
+    width: 100%;
     display: inline-flex;
     flex-direction: row;
     justify-content: space-between;
