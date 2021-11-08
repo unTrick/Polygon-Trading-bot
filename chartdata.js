@@ -148,6 +148,8 @@ async function priceAlert(){
     }
   });
 
+
+  // this is the MACD alerts
   let prevBuyLine = false;
   let prevSellLine = false;
   EMA9ListLine.forEach(function (line, index, array){
