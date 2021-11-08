@@ -14,9 +14,10 @@ p {
 }
 
 span {
-    width: 50%;
+    width: 100%;
     float: left;
     font-size: 25pt;
+    line-height: 35pt;
 }
 
 .container {

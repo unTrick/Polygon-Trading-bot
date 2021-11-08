@@ -148,15 +148,23 @@ async function priceAlert(){
     }
   });
 
+  let prevBuyLine = false;
+  let prevSellLine = false;
   EMA9ListLine.forEach(function (line, index, array){
-    if(line.EMA9Line < MACDLine[index+8].MACDLine){
-      $("#buySignal").text("buy signal at : " + line.time);
+    var alertPrice = priceOnTime[index+33].price;
+
+    
+    if(line.EMA9Line < MACDLine[index+8].MACDLine && prevSellLine){
+      $("#buySignal").text("buy signal at : " + line.time + " for " + alertPrice);
       $("#buySignal").css("color", "blue");
     }
-    else {
-      $("#sellSignal").text("sell signal at : " + line.time);
+    if (line.EMA9Line > MACDLine[index+8].MACDLine && prevBuyLine){
+      $("#sellSignal").text("sell signal at : " + line.time + " for " + alertPrice);
       $("#sellSignal").css("color", "red");
     }
+
+    prevBuyLine = line.EMA9Line < MACDLine[index+8].MACDLine;
+    prevSellLine = line.EMA9Line > MACDLine[index+8].MACDLine;
   });
 
 
@@ -182,7 +190,7 @@ async function priceAlert(){
 
 ///  Calling API and modeling data for each chart ///
 const maticData = async () => {
-    const response = await fetch('https://min-api.cryptocompare.com/data/v2/histohour?fsym=MATIC&tsym=USD&limit=119&api_key=0646cc7b8a4d4b54926c74e0b20253b57fd4ee406df79b3d57d5439874960146');
+    const response = await fetch('https://min-api.cryptocompare.com/data/v2/histoday?fsym=MATIC&tsym=USD&limit=119&api_key=0646cc7b8a4d4b54926c74e0b20253b57fd4ee406df79b3d57d5439874960146');
     const json = await response.json();
     const data = json.Data.Data
     const times = data.map(obj => obj.time)
