@@ -16,23 +16,32 @@
     </div> -->
 
     <container class="container">
-        <cards class="cards">
-            <polygon style="width: 100%" class="matic">
-                <card class="asset-info">
-                    <div class="title">
-                        <img src="https://polygon.technology/wp-content/uploads/2021/07/polygon-logo.svg" width="70%"> 
-                    </div>
-                    <div class="details">
-                        <h2 class="asset-price" id="maticPrice"></h2>
-                    </div>
-                </card>
-                <canvas id="maticChart"></canvas>
-            </polygon>
-        </cards>
-        
-        <div class="" id="priceAlerts">
-            <span id="buySignal">price value</span>
-            <span id="sellSignal">price value</span>
+        <div id="chartsdata">
+            <cards class="cards">
+                <polygon style="width: 100%" class="matic">
+                    <card class="asset-info">
+                        <div class="title">
+                            <img src="https://polygon.technology/wp-content/uploads/2021/07/polygon-logo.svg" width="70%"> 
+                        </div>
+                        <div class="details">
+                            <h2 class="asset-price" id="maticPrice"></h2>
+                        </div>
+                    </card>
+                    <canvas id="maticChart"></canvas>
+                </polygon>
+            </cards>
+            
+            <div class="" id="priceAlerts">
+                <span id="buySignal">price value</span>
+                <span id="sellSignal">price value</span>
+            </div>
+        </div>
+        <div id="holdings">
+            <span id="holdingsInitialAmount">initial</span>
+            <span id="holdingsShare">shares</span>
+            <span id="holdingsAmount">hodlings</span>
+            <span id="holdingsBought">bought price</span>
+            <span id="holdingsSold">sold price</span>
         </div>
       </container>
 </body>

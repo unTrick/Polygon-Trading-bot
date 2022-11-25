@@ -25,10 +25,24 @@ span {
     justify-content: center;
 }
 
+#chartsdata {
+    width: 100%;
+    padding-top: 50px;
+    float: left;
+}
+
 #priceAlerts {
     width: 100%;
     text-align: center;
-    padding-top: 200px;
+    padding-top: 50px;
+}
+
+#holdings {
+    float: left;
+    width: 100%;
+    text-align: left;
+    padding-top: 50px;
+    padding-left: 100px;
 }
 
 cards {

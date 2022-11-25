@@ -1,9 +1,18 @@
 
 // binance chart data WebSoket
 // install a live server to make it work
-const ws = new WebSocket("wss://stream.binance.com:9443/ws/maticusdt@trade");
+const ws = new WebSocket("wss://stream.binance.com:9443/ws/maticbusd@trade");
 let lastPrice = null;
 var priceStorage = [];
+var bought = false;
+let initialHold = 100;
+let currentHoldings = 0;
+let boughtAtPrice = 0;
+let soldAtPrice = 0;
+let targetUpPrice = 0;
+let targetDownPrice = 0;
+let isHoldingZero = false;
+let numberOfShares = 0;
 
 ws.onmessage = (event) => {
     let stockObject = JSON.parse(event.data);
@@ -24,14 +33,66 @@ ws.onmessage = (event) => {
 
     priceStorage.push(currentPrice);
 
-    if(priceStorage.length > 40){
+    if (bought){
+      targetUpPrice = lastPrice - (lastPrice * 0.05);
+      targetDownPrice = boughtAtPrice - (boughtAtPrice * 0.05);
+
+      if(currentPrice<=targetUpPrice){
+        bought = false;
+        soldAtPrice = currentPrice;
+        let currentHoldingAtSold = soldAtPrice * numberOfShares;
+        
+        $("#holdingsAmount").text("Current Holdings : " + currentHoldingAtSold);
+        $("#holdingsShare").text("Number of Shares : " + 0);
+        $("#holdingsSold").text("Sold at : " + soldAtPrice);
+      }
+      else if (currentPrice<=targetDownPrice){
+        bought = false;
+        soldAtPrice = currentPrice;
+        let currentHoldingAtSold = soldAtPrice * numberOfShares;
+        
+        $("#holdingsAmount").text("Current Holdings : " + currentHoldingAtSold);
+        $("#holdingsShare").text("Number of Shares : " + 0);
+        $("#holdingsSold").text("Sold at : " + soldAtPrice);
+      }
+      else {
+        let currentHoldingAtCurrentPrice = currentPrice * numberOfShares;
+        $("#holdingsAmount").text("Current Holdings : " + currentHoldingAtCurrentPrice);
+      }
 
     }
+    else {
+      bought = true;
+
+      if(!isHoldingZero){
+        isHoldingZero = true;
+
+        currentHoldings = currentPrice * (initialHold/currentPrice);
+        boughtAtPrice = currentPrice;
+        numberOfShares = initialHold/currentPrice;
+
+        $("#holdingsInitialAmount").text("Initial Holdings : " + initialHold);
+        $("#holdingsShare").text("Number of Shares : " + numberOfShares);
+        $("#holdingsAmount").text("Current Holdings : " + currentHoldings);
+        $("#holdingsBought").text("Bought Price At : " + boughtAtPrice);
+      }
+      else {
+
+        currentHoldings = currentPrice * (currentHoldings/currentPrice);
+        numberOfShares = currentHoldings/currentPrice;
+        boughtAtPrice = currentPrice;
+
+        $("#holdingsShare").text("Number of Shares : " + numberOfShares);
+        $("#holdingsAmount").text("Current Holdings : " + currentHoldings);
+        $("#holdingsBought").text("Bough Price At : " + boughtAtPrice);
+      }
+    }
+    
     
     updatePolygonPrice(currentPrice);
     //console.log(stockObject);
     //console.log(priceStorage);
-    //lastPrice = currentPrice;
+    lastPrice = currentPrice;
 }
 
 // price alert based on MACD
@@ -192,7 +253,7 @@ async function priceAlert(){
 
 ///  Calling API and modeling data for each chart ///
 const maticData = async () => {
-    const response = await fetch('https://min-api.cryptocompare.com/data/v2/histoday?fsym=MATIC&tsym=USD&limit=119&api_key=0646cc7b8a4d4b54926c74e0b20253b57fd4ee406df79b3d57d5439874960146');
+    const response = await fetch('https://min-api.cryptocompare.com/data/v2/histominute?fsym=MATIC&tsym=USD&limit=119&api_key=0646cc7b8a4d4b54926c74e0b20253b57fd4ee406df79b3d57d5439874960146');
     const json = await response.json();
     const data = json.Data.Data
     const times = data.map(obj => obj.time)
